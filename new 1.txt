@@ -1,0 +1,19 @@
+<?php
+        
+        if(isset($_GET["update"])){
+            $id = $_GET["id"] ?? null;
+            $where = array("id" => $id);
+       
+            $row = $obj->select_record("data",$where);
+
+            ?>
+                <form action="actions.php" method="post">
+                    <input type="text" name="name" id="name" vlaue="<?php echo $row["name"] ?>" ><br><br>
+                    <input type="email" name="email" id="email" vlaue="<?php echo $row["email"] ?>" ><br><br>
+                    <input type="password" name="password" id="password" vlaue="<?php echo $row["password"] ?>" ><br><br>
+                    <input type="submit" value="Register" name="submit">
+                </form>
+
+            <?php
+        }
+   ?>
