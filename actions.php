@@ -18,15 +18,34 @@ if(isset($_POST["submit"])){
 }
 
 
-if(isset($_GET["update"])){
-    $id = $_GET["id"] ?? null;
+if(isset($_POST["update_value"])){
+    $id = $_POST["id"] ?? null;
     $where = array(
-        "id" => $id,
-        "key" => "king"
+        "id" => $id);
+
+    $myArray = array(
+        
+        "name" => $_POST["name"],
+        "email" => $_POST["email"],
+        "password" => $_POST["password"]
+        
     );
 
-    $row = $obj->select_record("data",$where);
+    if ($obj->update_record("oopdb",$where,$myArray)) {
+        header("location:index.php?msg=Record Inserted");   }
 
-    return redirect('update.php');
+
 }
+
+if(isset($_GET["delete"])){
+    $id = $_GET["id"] ?? null;
+    $where = array("id" => $id);
+
+
+    if ($obj->delete_record("oopdb",$where)) {
+        header("location:index.php?msg=Record Deleted");   }
+
+
+}
+
 ?>

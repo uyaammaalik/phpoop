@@ -42,6 +42,39 @@ class DataOperation extends Database{
         $row = $query->fetch_array();
         return $row;
     }
+
+    public function update_record($table, $where,$feilds){
+        $sql = "";
+        $condition = "";
+
+        foreach ($where as $key => $value) {
+            $condition .= $key . " = '" . $value ."' AND ";
+        }
+        $condition = substr($condition, 0, -5);
+
+        foreach($feilds as $key => $value){
+            $sql .= $key . "='".$value."', ";
+        }
+        $sql = substr($sql, 0,-2);
+        $sql = "UPDATE ".$table." SET ".$sql." WHERE ".$condition;
+        if (mysqli_query($this->con,$sql)) {
+            return true;
+        }
+    }
+
+        public function delete_record($table, $where){
+        $sql = "";
+        $condition = "";
+
+        foreach ($where as $key => $value) {
+            $condition .= $key . " = '" . $value . "' AND ";
+        }
+        $condition = substr($condition, 0, -5);
+        $sql = "DELETE FROM ".$table." WHERE ".$condition;
+        if (mysqli_query($this->con,$sql)) {
+            return true;
+        }
+    }
 }
 
 
